@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 class App extends React.Component {
     render() {
-        return (<p>App Rendered</p>)
+        return (<p>{this.props.children}</p>)
     }
 }
 
