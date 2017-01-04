@@ -1,5 +1,6 @@
 var express = require("express")
 var app = express()
+var path = require("path")
 
 const webpack = require('webpack')
 const webpackMiddleware = require('webpack-dev-middleware')
