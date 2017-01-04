@@ -1,6 +1,8 @@
 var express = require("express")
 var app = express()
 var path = require("path")
+const bodyParser = require('body-parser');
+const passport = require('passport');
 
 const webpack = require('webpack')
 const webpackMiddleware = require('webpack-dev-middleware')
@@ -19,6 +21,8 @@ stats: {
 }
 })
 
+app.use(passport.initialize());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(middleware)
 app.use(webpackHotMiddleware(compiler))
 app.get('/', function response(req, res) {
@@ -26,15 +30,26 @@ app.get('/', function response(req, res) {
   res.end()
 })
 
+// load passport strategies
+
+const localLoginStrategy = require('./passport/local-login');
+
+
+passport.use('local-login', localLoginStrategy);
+
+const authCheckMiddleware = require('./middleware/auth-check');
+app.use('/api', authCheckMiddleware);
+
+// routes
+// const authRoutes = require('./routes/auth');
+// const apiRoutes = require('./routes/api');
+// app.use('/auth', authRoutes);
+// app.use('/api', apiRoutes);
+
 app.use('/assets', express.static(path.join(__dirname, './assets')))
 var server = app.listen(3000, "localhost", (err) => {
-
     if (err) {
         return onError(err)
     }
-
-    var socket = require("socket.io")
-    var io = socket(server)
-    require('./socket').init(io)
     console.log("SERVER STARTED !")
 })

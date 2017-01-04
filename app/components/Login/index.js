@@ -27,7 +27,7 @@ export default class Login extends React.Component {
     }
 
     render() {
-        return (<form onSubmit={processLogin}>
+        return (<form onSubmit={this.processLogin}>
             <input type="text" placeholder="enter email"/> 
             <input type="text" placeholder="enter password"/> 
             <input type="submit" />

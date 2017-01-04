@@ -1,5 +1,7 @@
 import App from '../components/App/index.jsx';
 import Login from '../components/Login'
+import Dashboard from '../components/Dashboard'
+import Auth from '../auth'
 
 export default [{
     component: App,
@@ -7,7 +9,7 @@ export default [{
         path: "/",
         getComponent: (location, callback) => {
             if (Auth.isUserAuthenticated()) {
-                callback(null, DashboardPage);
+                callback(null, Dashboard);
             } else {
                 callback(null, Login);
             }

@@ -1,12 +1,7 @@
 const jwt = require('jsonwebtoken');
-const User = require('mongoose').model('User');
 const config = require('../config');
 const _ = require("lodash")
-
-var users= [{
-    "id": 1,
-    "email": "vivek@metacode.io"
-}]
+const users = require("../data/users")
 
 module.exports = (req, res, next) => {
 
