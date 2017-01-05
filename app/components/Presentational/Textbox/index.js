@@ -11,7 +11,7 @@ export default class Textbox extends React.Component {
     render() {
         return (<div>
                 <p className={styles.input_title}>{this.props.label}</p>
-                <input value={this.props.value} type={this.props.type} onChange={this.onChange} name={this.props.name} className={styles.login_box} /></div>)
+                <input value={this.props.value} autoFocus={this.props.autoFocus} type={this.props.type} onChange={this.onChange} name={this.props.name} className={styles.login_box} /></div>)
     }
 
     onChange(e) {

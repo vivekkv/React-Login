@@ -1,7 +1,7 @@
 module.exports = [{
     "id": 1,
-    "email": "admin@react.com",
-    "password": "123123",
+    "email": "admin@123.com",
+    "password": "123",
     "name": "admin"
 }, {
    "id": 2,

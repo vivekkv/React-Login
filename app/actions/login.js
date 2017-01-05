@@ -8,9 +8,10 @@ export function inputChanged(name, value) {
     }
 }
 
-export function submitLogin(formData) {
+export function submitLogin(formData, openRoute) {
     return {
         type: SUBMIT_LOGIN,
-        formData
+        formData,
+        openRoute
     }
 }

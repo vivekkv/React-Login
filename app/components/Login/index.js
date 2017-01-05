@@ -20,7 +20,7 @@ class Login extends React.Component {
             <h2 className={styles.login_title}>Login</h2>
                 <hr />
                 <Form onSubmit={this.processLogin} formData={this.props.formData} onChange={this.props.onChange}>
-                    <Textbox name={"email"}  label={"Email"} type={"text"}/>
+                    <Textbox name={"email"}  label={"Email"} type={"text"} autoFocus={true}/>
                     <Textbox name={"password"}  label={"Password"} type={"password"}/>
                 </Form>
             </div>
@@ -29,7 +29,9 @@ class Login extends React.Component {
 
     processLogin(e) {
         e.preventDefault()
-        this.props.dispatch(submitLogin(this.props.formData))
+        this.props.dispatch(submitLogin(this.props.formData, (route) => {
+            this.context.router.replace(route)
+        }))
     }
 }
 
