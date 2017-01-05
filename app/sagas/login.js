@@ -7,25 +7,41 @@ export function* submitLogin() {
     while(true) {
         var { formData, openRoute } = yield take(SUBMIT_LOGIN);
         try {
-            var response = yield call(request, '/auth/login', {
-                method: 'POST',
-                body: JSON.stringify({
-                    "email": formData.email.value,
-                    "password": formData.password.value
-                }),
-                headers: {
-                        'Content-Type': 'application/json'
-                    }
-            });
-            if(response.err) {
-                alert("show error")
-            } else {
-                Auth.authenticateUser(response.data.token)
-                openRoute("/")
+            if(validateFormData(formData)) {
+                var response = yield call(request, '/auth/login', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        "email": formData.email.value,
+                        "password": formData.password.value
+                    }),
+                    headers: {
+                            'Content-Type': 'application/json'
+                        }
+                });
+                if(response.err) {
+                    alert("login failed")
+                } else {
+                    Auth.authenticateUser(response.data.token)
+                    openRoute("/")
+                }
             }
         }
         catch(e) {
-
+            console.log(e)
         }
     }
+}
+
+function validateFormData(formData) {
+    if(!formData.email && !formData.password) {
+        alert("email and password cannot be blank")
+        return false;
+    } else if(!formData.email || (formData.email && !formData.email.value)) {
+        alert("email cannot be blank")
+        return false;
+    } else if(!formData.password || (formData.password && !formData.password.value)) {
+        alert("password cannot be blank")
+        return false;
+    }
+    return true;
 }

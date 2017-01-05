@@ -13,9 +13,11 @@ export default class Dashboard extends React.Component {
     render() {
         return (<div>
         <Nav logOff={this.logOff}/>
-        <Content><div className="jumbotron">
-        <h1>Hooo</h1>
-      </div></Content></div>)
+        <Content>
+            <div className="jumbotron">
+                <h1>Home Page   </h1>
+            </div>
+      </Content></div>)
     }
 
     logOff() {
