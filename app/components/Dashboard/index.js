@@ -1,14 +1,29 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Auth from '../../auth'
+import Nav from '../Navigation/index.jsx'
+import Content from '../Content/index.jsx'
 
 export default class Dashboard extends React.Component {
 
     constructor() {
         super()
-        Auth.deauthenticateUser();
+        this.logOff = this.logOff.bind(this)
     }
 
     render() {
-        return <p>Dashboard</p>
+        return (<div>
+        <Nav logOff={this.logOff}/>
+        <Content><div className="jumbotron">
+        <h1>Hooo</h1>
+      </div></Content></div>)
+    }
+
+    logOff() {
+        Auth.deauthenticateUser();
+        this.context.router.replace("/")
     }
 }
+
+Dashboard.contextTypes = {
+  router: PropTypes.object.isRequired
+};

@@ -19,7 +19,6 @@ module.exports = (req, res, next) => {
 
     const userId = decoded.sub;
     const userInfo = _.find(users, (d) => { return d.id == userId })
-
     if(userInfo) {
         return next();
     } else {
