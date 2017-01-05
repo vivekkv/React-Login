@@ -1,6 +1,6 @@
 import React,  { PropTypes  } from 'react'
 import Auth from '../../auth'
-import Textbox from '../Presentational/Textbox'
+import Textbox from '../Presentational/Textbox/index.jsx'
 import Form from '../Presentational/Form/index.jsx'
 import { connect } from 'react-redux'
 import { inputChanged, submitLogin } from '../../actions/login'

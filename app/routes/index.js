@@ -1,6 +1,6 @@
 import App from '../components/App/index.jsx';
-import Login from '../components/Login'
-import Dashboard from '../components/Dashboard'
+import Login from '../components/Login/index.jsx'
+import Dashboard from '../components/Dashboard/index.jsx'
 import Auth from '../auth'
 
 export default [{
