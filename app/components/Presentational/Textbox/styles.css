@@ -1,0 +1,13 @@
+.login_box {
+    border: 3px solid #F4F4F4;
+    padding-left: 15px;
+    margin-bottom: 25px;
+    width: 100%;
+    height: 40px
+}
+
+.input_title {
+    color: rgba(164, 164, 164, 0.9);
+    padding-left: 3px;
+    margin-bottom: 2px;
+}

@@ -43,9 +43,9 @@ app.use('/api', authCheckMiddleware);
 // routes
 // const authRoutes = require('./routes/auth');
 // const apiRoutes = require('./routes/api');
-// app.use('/auth', authRoutes);
 // app.use('/api', apiRoutes);
 
+app.use('/auth', require('./routes/auth'));
 app.use('/assets', express.static(path.join(__dirname, './assets')))
 var server = app.listen(3000, "localhost", (err) => {
     if (err) {

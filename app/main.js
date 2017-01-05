@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import appReducer from './reducers/app'
+import loginReducer from './reducers/login'
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from './sagas/root'
 import routes from './routes'
@@ -17,7 +18,8 @@ const enhancers = [applyMiddleware(...middleWares), devTools()];
 
 const store = createStore(combineReducers({
     routing: routerReducer,
-    app    : appReducer
+    app    : appReducer,
+    login  : loginReducer 
 }), {
     
 }, compose(...enhancers))

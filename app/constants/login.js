@@ -1,0 +1,2 @@
+export const INPUT_CHANGED = "LOGIN_INPUT_CHANGED"
+export const SUBMIT_LOGIN  = "SUBMIT_LOGIN"

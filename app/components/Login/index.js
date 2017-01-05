@@ -1,65 +1,55 @@
-import React from 'react'
-import Form from '../Presentational/Form'
-import { authenticateUser } from '../../auth'
+import React,  { PropTypes  } from 'react'
+import Auth from '../../auth'
+import Textbox from '../Presentational/Textbox'
+import Form from '../Presentational/Form/index.jsx'
+import { connect } from 'react-redux'
+import { inputChanged, submitLogin } from '../../actions/login'
+import { selectLogin } from '../../selectors/login'
+import styles from './styles.css'
 
-export default class Login extends React.Component {
+class Login extends React.Component {
  
     constructor(props, context) {
-
         super(props, context)
-        const storedMessage = localStorage.getItem('successMessage')
-        let successMessage = ''
-
-        if (storedMessage) {
-            successMessage = storedMessage
-            localStorage.removeItem('successMessage')
-        }
-        
-        this.state = {
-            errors: {},
-            successMessage,
-            user: {
-                email: '',
-                password: ''
-            }
-        }
         this.processLogin = this.processLogin.bind(this)
     }
 
     render() {
-        return (<form onSubmit={this.processLogin}>
-            <input type="text" placeholder="enter email"/> 
-            <input type="text" placeholder="enter password"/> 
-            <input type="submit" />
-        </form>)
+        return (<div className="container">
+            <div className={styles.card}>
+            <h2 className={styles.login_title}>Login</h2>
+                <hr />
+                <Form onSubmit={this.processLogin} formData={this.props.formData} onChange={this.props.onChange}>
+                    <Textbox name={"email"}  label={"Email"} type={"text"}/>
+                    <Textbox name={"password"}  label={"Password"} type={"password"}/>
+                </Form>
+            </div>
+        </div>)
     }
 
     processLogin(e) {
-
         e.preventDefault()
-        const email = encodeURIComponent(this.state.user.email)
-        const password = encodeURIComponent(this.state.user.password)
-        const formData = `email=${email}&password=${password}`
-        const xhr = new XMLHttpRequest();
-
-        xhr.open('post', '/auth/login')
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-        xhr.responseType = 'json'
-        xhr.addEventListener('load', () => {
-            if (xhr.status === 200) {
-                this.setState({
-                    errors: {}
-                });
-                Auth.authenticateUser(xhr.response.token)
-                this.context.router.replace('/')
-            } else {
-                    const errors = xhr.response.errors ? xhr.response.errors : {}
-                    errors.summary = xhr.response.message
-                    this.setState({
-                        errors
-                    });
-                }
-        })
-        xhr.send(formData)
+        this.props.dispatch(submitLogin(this.props.formData))
     }
 }
+
+Login.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state) {
+    return {
+        formData: selectLogin(state)
+    };
+}
+
+function mapDispatchToProps(dispatch, ownProps) {
+    return {
+        onChange: function(name, value) {
+            dispatch(inputChanged(name, value))   
+        },
+        dispatch
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
